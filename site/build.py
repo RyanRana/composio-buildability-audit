@@ -16,13 +16,15 @@ try:
 except FileNotFoundError:
     verify = {"sample": [], "meta": {}}
 
-tpl = (ROOT / "site/template.html").read_text()
 payload = (
     "window.FINDINGS=" + json.dumps(findings, separators=(",", ":")) + ";\n"
     "window.VERIFY=" + json.dumps(verify, separators=(",", ":")) + ";\n"
     "window.BUILT=" + json.dumps(str(datetime.date.today())) + ";"
 )
-out = tpl.replace("/*__DATA__*/", payload)
-(ROOT / "site/index.html").write_text(out)
-print(f"built site/index.html  ({len(findings)} findings, "
-      f"{len(verify.get('sample', []))} verified rows)")
+
+for tpl_name, out_name in [("template.html", "index.html"),
+                           ("minimal_template.html", "minimal.html")]:
+    tpl = (ROOT / "site" / tpl_name).read_text()
+    (ROOT / "site" / out_name).write_text(tpl.replace("/*__DATA__*/", payload))
+    print(f"built site/{out_name}  ({len(findings)} findings, "
+          f"{len(verify.get('sample', []))} verified rows)")

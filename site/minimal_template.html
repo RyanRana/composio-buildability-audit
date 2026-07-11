@@ -1,0 +1,236 @@
+<title>100 Apps · Buildability, at a glance</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A minimal graphical view of 100 SaaS apps scored on whether an AI agent can use them today.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff; --fg:#0c0d0e; --muted:#71767d; --faint:#9aa0a6;
+  --line:#ededee; --card:#fafafa;
+  --now:#3f9a70; --now-s:#e7f3ec;
+  --fric:#c2913f; --fric-s:#f6efdd;
+  --blk:#c85c52; --blk-s:#f7e4e1;
+  --sans:'Inter',system-ui,-apple-system,Segoe UI,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#0b0c0d; --fg:#f2f3f4; --muted:#9298a0; --faint:#676d74;
+  --line:#1e2123; --card:#131517;
+  --now:#57c191; --now-s:#12271e;
+  --fric:#dcb05e; --fric-s:#2a2110;
+  --blk:#e07d72; --blk-s:#2c1614;
+}}
+:root[data-theme="light"]{--bg:#ffffff;--fg:#0c0d0e;--muted:#71767d;--faint:#9aa0a6;--line:#ededee;--card:#fafafa;--now:#3f9a70;--now-s:#e7f3ec;--fric:#c2913f;--fric-s:#f6efdd;--blk:#c85c52;--blk-s:#f7e4e1;}
+:root[data-theme="dark"]{--bg:#0b0c0d;--fg:#f2f3f4;--muted:#9298a0;--faint:#676d74;--line:#1e2123;--card:#131517;--now:#57c191;--now-s:#12271e;--fric:#dcb05e;--fric-s:#2a2110;--blk:#e07d72;--blk-s:#2c1614;}
+*{box-sizing:border-box}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);line-height:1.5;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--now);outline-offset:3px;border-radius:4px}
+.wrap{max-width:760px;margin:0 auto;padding:0 24px}
+
+/* top bar — barely there */
+.bar{display:flex;align-items:center;gap:14px;padding:22px 0;font-family:var(--mono);font-size:.78rem;color:var(--muted)}
+.bar .mark{color:var(--fg);font-weight:500;letter-spacing:-.01em}
+.bar .sp{flex:1}
+.bar a{color:var(--muted);text-decoration:none}
+.bar a:hover{color:var(--fg)}
+.tg{background:none;border:0;font:inherit;color:var(--muted);cursor:pointer;padding:0}
+.tg:hover{color:var(--fg)}
+
+/* hero */
+.hero{padding:52px 0 8px;text-align:center}
+.eyebrow{font-family:var(--mono);font-size:.74rem;letter-spacing:.02em;color:var(--faint)}
+h1{font-size:clamp(2.2rem,6.4vw,3.5rem);font-weight:700;letter-spacing:-.035em;line-height:1.03;margin:16px 0 0;text-wrap:balance}
+h1 em{font-style:normal;color:var(--now)}
+.lede{max-width:34ch;margin:18px auto 0;color:var(--muted);font-size:1.06rem;text-wrap:balance}
+
+/* the graphic */
+.figure{margin:44px 0 0}
+.grid{display:grid;gap:9px}
+.crow{display:grid;grid-template-columns:130px 1fr;align-items:center;gap:16px}
+.crow .lab{font-family:var(--mono);font-size:.72rem;color:var(--muted);text-align:right;line-height:1.25;
+  cursor:default;transition:color .15s}
+.cells{display:grid;grid-template-columns:repeat(10,1fr);gap:6px}
+.cell{aspect-ratio:1;border-radius:5px;position:relative;cursor:pointer;
+  transition:transform .12s ease, box-shadow .12s ease, opacity .2s ease;
+  opacity:0;transform:scale(.4);animation:pop .42s cubic-bezier(.2,.8,.3,1) forwards}
+@keyframes pop{to{opacity:1;transform:scale(1)}}
+.cell.now{background:var(--now)} .cell.fric{background:var(--fric)} .cell.blk{background:var(--blk)}
+.cell.gated{box-shadow:inset 0 0 0 3px var(--bg)}
+.cell:hover{transform:scale(1.28);z-index:5;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+.dim .cell{opacity:.16}
+.dim .crow.on .cell{opacity:1}
+.crow.on .lab{color:var(--fg)}
+@media(max-width:560px){.crow{grid-template-columns:96px 1fr;gap:10px}.crow .lab{font-size:.64rem}.cells{gap:4px}.cell{border-radius:4px}}
+
+/* tooltip */
+#tip{position:fixed;pointer-events:none;z-index:50;background:var(--fg);color:var(--bg);
+  font-family:var(--mono);font-size:.72rem;padding:7px 10px;border-radius:8px;opacity:0;
+  transform:translateY(4px);transition:opacity .12s;max-width:240px;line-height:1.4;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+#tip.on{opacity:1;transform:translateY(0)}
+#tip b{font-family:var(--sans);font-weight:600}
+#tip .st{opacity:.7}
+
+/* legend */
+.legend{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:26px 0 0}
+.lg{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.72rem;color:var(--muted);
+  border:1px solid var(--line);border-radius:20px;padding:6px 12px;background:var(--card);cursor:pointer;
+  transition:border-color .15s,color .15s}
+.lg:hover{color:var(--fg);border-color:var(--faint)}
+.lg[aria-pressed="true"]{border-color:var(--fg);color:var(--fg)}
+.lg i{width:11px;height:11px;border-radius:3px}
+.lg .ring{background:var(--faint);box-shadow:inset 0 0 0 3px var(--card)}
+
+/* numbers row */
+.nums{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin:48px 0 0;background:var(--line);
+  border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.nums .n{background:var(--bg);padding:22px 12px;text-align:center}
+.nums .n .v{font-size:2.1rem;font-weight:700;letter-spacing:-.03em;line-height:1}
+.nums .n .k{font-family:var(--mono);font-size:.68rem;color:var(--muted);margin-top:8px;text-transform:uppercase;letter-spacing:.04em}
+@media(max-width:560px){.nums{grid-template-columns:repeat(2,1fr)}}
+
+/* one-line takeaways */
+.takes{margin:44px 0 0;display:grid;gap:0}
+.take{display:flex;gap:14px;align-items:baseline;padding:16px 2px;border-top:1px solid var(--line)}
+.take:last-child{border-bottom:1px solid var(--line)}
+.take .d{font-family:var(--mono);font-size:.72rem;color:var(--faint);min-width:26px}
+.take p{margin:0;font-size:.98rem;color:var(--fg)}
+.take p span{color:var(--muted)}
+
+/* cta */
+.cta{margin:52px 0 0;text-align:center}
+.cta a.btn{display:inline-flex;align-items:center;gap:9px;background:var(--fg);color:var(--bg);
+  font-family:var(--mono);font-size:.84rem;font-weight:500;text-decoration:none;padding:13px 22px;border-radius:12px;
+  transition:transform .12s}
+.cta a.btn:hover{transform:translateY(-1px)}
+.cta .sub{margin-top:14px;font-family:var(--mono);font-size:.74rem;color:var(--faint)}
+.cta .sub a{color:var(--muted);text-decoration:none}
+.cta .sub a:hover{color:var(--fg)}
+
+footer{padding:60px 0 70px;text-align:center;font-family:var(--mono);font-size:.72rem;color:var(--faint)}
+footer a{color:var(--muted);text-decoration:none}
+footer a:hover{color:var(--fg)}
+</style>
+
+<div class="wrap">
+  <div class="bar">
+    <span class="mark">buildability</span>
+    <span class="sp"></span>
+    <a href="./index.html">full report →</a>
+    <button class="tg" id="tg" aria-label="Toggle theme">◐</button>
+  </div>
+
+  <div class="hero">
+    <div class="eyebrow">composio · 100 apps · agent-researched</div>
+    <h1>Which apps can an <em>agent</em> use today?</h1>
+    <p class="lede">One square per app. Color is the verdict. A ring means you can't self-serve the keys.</p>
+  </div>
+
+  <div class="figure">
+    <div class="grid" id="grid"></div>
+    <div class="legend" id="legend"></div>
+  </div>
+
+  <div class="nums" id="nums"></div>
+
+  <div class="takes" id="takes"></div>
+
+  <div class="cta">
+    <a class="btn" href="./index.html">Read the full breakdown &nbsp;→</a>
+    <div class="sub">source · <a href="https://github.com/RyanRana/composio-buildability-audit" target="_blank" rel="noopener">github.com/RyanRana/composio-buildability-audit</a></div>
+  </div>
+</div>
+
+<footer>100 apps · 10 categories · verified to 100% on a 21-app sample · <a href="./index.html">the process →</a></footer>
+
+<div id="tip" role="status"></div>
+
+<script>/*__DATA__*/</script>
+<script>
+const F=window.FINDINGS;
+const CATS=["CRM & Sales","Support & Helpdesk","Communications & Messaging","Marketing & Social","Ecommerce","Data, SEO & Scraping","Developer & Infra","Productivity & PM","Finance & Fintech","AI, Research & Media"];
+const SHORT={"CRM & Sales":"CRM & Sales","Support & Helpdesk":"Support","Communications & Messaging":"Comms","Marketing & Social":"Marketing","Ecommerce":"Ecommerce","Data, SEO & Scraping":"Data / SEO","Developer & Infra":"Dev & Infra","Productivity & PM":"Productivity","Finance & Fintech":"Finance","AI, Research & Media":"AI & Media"};
+const vclass=v=>v==="buildable-now"?"now":v==="blocked"?"blk":"fric";
+const vlabel=v=>({"buildable-now":"buildable now","buildable-with-friction":"buildable with friction","blocked":"blocked"}[v]);
+const sshort=s=>({"self-serve-free":"self-serve · free","self-serve-trial":"self-serve · trial","gated-paid":"gated · paid plan","gated-approval":"gated · app review","gated-partnership":"gated · sales"}[s]||s);
+const gated=s=>s.startsWith("gated");
+
+/* build the grid */
+const grid=document.getElementById("grid");
+let ci=0;
+grid.innerHTML=CATS.map(cat=>{
+  const apps=F.filter(x=>x.category===cat);
+  const cells=apps.map(x=>{
+    const cl=vclass(x.buildability_verdict)+(gated(x.self_serve_status)?" gated":"");
+    const d=(ci++)*7;
+    return `<span class="cell ${cl}" style="animation-delay:${d}ms;color:var(--${vclass(x.buildability_verdict)})"
+      data-app="${x.app.replace(/"/g,'&quot;')}" data-v="${vlabel(x.buildability_verdict)}"
+      data-s="${sshort(x.self_serve_status)}" data-mcp="${x.api_surface.has_mcp?1:0}" tabindex="0"></span>`;
+  }).join("");
+  return `<div class="crow" data-cat="${cat}"><div class="lab">${SHORT[cat]}</div><div class="cells">${cells}</div></div>`;
+}).join("");
+
+/* tooltip */
+const tip=document.getElementById("tip");
+function showTip(el){
+  const mcp=el.dataset.mcp==="1"?" · ships an MCP":"";
+  tip.innerHTML=`<b>${el.dataset.app}</b><br><span class="st">${el.dataset.v} · ${el.dataset.s}${mcp}</span>`;
+  tip.classList.add("on");
+}
+function moveTip(e){
+  const x=(e.touches?e.touches[0].clientX:e.clientX), y=(e.touches?e.touches[0].clientY:e.clientY);
+  const w=tip.offsetWidth, h=tip.offsetHeight;
+  tip.style.left=Math.min(Math.max(10,x+14),innerWidth-w-10)+"px";
+  tip.style.top=Math.max(10,y-h-14)+"px";
+}
+grid.addEventListener("pointermove",e=>{if(e.target.classList.contains("cell")){showTip(e.target);moveTip(e);}});
+grid.addEventListener("pointerleave",()=>tip.classList.remove("on"));
+grid.addEventListener("focusin",e=>{if(e.target.classList.contains("cell")){const r=e.target.getBoundingClientRect();showTip(e.target);tip.style.left=Math.min(r.left,innerWidth-tip.offsetWidth-10)+"px";tip.style.top=(r.top-tip.offsetHeight-12)+"px";}});
+grid.addEventListener("focusout",()=>tip.classList.remove("on"));
+
+/* legend = filter */
+const counts=v=>F.filter(x=>vclass(x.buildability_verdict)===v).length;
+const gatedCount=F.filter(x=>gated(x.self_serve_status)).length;
+const leg=[["now","buildable now",counts("now")],["fric","with friction",counts("fric")],["blk","blocked",counts("blk")],["ring","can't self-serve keys",gatedCount]];
+const legend=document.getElementById("legend");
+legend.innerHTML=leg.map(([k,t,n])=>`<button class="lg" data-k="${k}" aria-pressed="false">
+  <i class="${k==='ring'?'ring':''}" style="${k!=='ring'?`background:var(--${k})`:''}"></i>${t} · ${n}</button>`).join("");
+let active=null;
+legend.addEventListener("click",e=>{
+  const b=e.target.closest(".lg"); if(!b)return;
+  const k=b.dataset.k;
+  active = active===k ? null : k;
+  [...legend.children].forEach(c=>c.setAttribute("aria-pressed", c.dataset.k===active));
+  document.querySelectorAll(".cell").forEach(c=>{
+    let on=true;
+    if(active==="ring") on=c.classList.contains("gated");
+    else if(active) on=c.classList.contains(active);
+    c.style.opacity=on?"":"0.12";
+    c.style.pointerEvents=on?"":"none";
+  });
+});
+
+/* numbers */
+const now=counts("now"), self=F.filter(x=>x.self_serve_status.startsWith("self-serve")).length, mcp=F.filter(x=>x.api_surface.has_mcp).length;
+document.getElementById("nums").innerHTML=[[now,"buildable now"],[self,"self-serve keys"],[mcp,"ship an MCP"],["100%","verified*"]]
+  .map(([v,k])=>`<div class="n"><div class="v">${v}</div><div class="k">${k}</div></div>`).join("");
+
+/* takeaways */
+const takes=[
+  ["01","<b>Auth isn't the wall — access is.</b> <span>OAuth2 or an API key covers all 100; the split is whether you can self-serve production credentials.</span>"],
+  ["02","<b>Dev tools & productivity are free money.</b> <span>Both clusters are fully self-serve and mostly ship an MCP already.</span>"],
+  ["03","<b>Ad platforms are the hard cluster.</b> <span>Google, Meta, LinkedIn and Threads are 100% gated behind review or partnerships.</span>"],
+  ["04","<b>Only two are truly blocked.</b> <span>PitchBook and NotebookLM have no self-serve path at all.</span>"],
+];
+document.getElementById("takes").innerHTML=takes.map(([d,t])=>`<div class="take"><span class="d">${d}</span><p>${t}</p></div>`).join("");
+
+/* theme */
+document.getElementById("tg").addEventListener("click",()=>{
+  const cur=document.documentElement.getAttribute("data-theme");
+  const dark=cur?cur==="dark":matchMedia("(prefers-color-scheme:dark)").matches;
+  document.documentElement.setAttribute("data-theme",dark?"light":"dark");
+});
+</script>
