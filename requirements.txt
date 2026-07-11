@@ -1,0 +1,5 @@
+anthropic>=0.40.0
+pydantic>=2.0
+# Optional — enables the Composio tool path (falls back to Anthropic web_search if absent)
+composio>=0.7.0
+composio_anthropic>=0.7.0

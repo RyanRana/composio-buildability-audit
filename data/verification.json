@@ -1,0 +1,530 @@
+{
+  "meta": {
+    "sample_size": 21,
+    "ladder": {
+      "memory": {
+        "status": 13,
+        "verdict": 14,
+        "both": 11,
+        "n": 21,
+        "status_pct": 62,
+        "verdict_pct": 67,
+        "both_pct": 52
+      },
+      "first": {
+        "status": 18,
+        "verdict": 21,
+        "both": 18,
+        "n": 21,
+        "status_pct": 86,
+        "verdict_pct": 100,
+        "both_pct": 86
+      },
+      "verified": {
+        "status": 21,
+        "verdict": 21,
+        "both": 21,
+        "n": 21,
+        "status_pct": 100,
+        "verdict_pct": 100,
+        "both_pct": 100
+      }
+    },
+    "corrections": [
+      "Otter AI",
+      "iPayX",
+      "Fathom"
+    ],
+    "human_checked": [
+      "Salesforce",
+      "Ahrefs",
+      "NotebookLM",
+      "fanbasis"
+    ]
+  },
+  "sample": [
+    {
+      "app": "Salesforce",
+      "memory": {
+        "status": "self-serve-free",
+        "verdict": "buildable-now",
+        "status_ok": true,
+        "verdict_ok": true
+      },
+      "first": {
+        "status": "self-serve-free",
+        "verdict": "buildable-now",
+        "status_ok": true,
+        "verdict_ok": true
+      },
+      "truth": {
+        "status": "self-serve-free",
+        "verdict": "buildable-now"
+      },
+      "result": "agree",
+      "checked_by": "human+agent",
+      "note": "Free Developer Edition org, no card; Connected App OAuth.",
+      "evidence": "https://developer.salesforce.com/signup"
+    },
+    {
+      "app": "Attio",
+      "memory": {
+        "status": "self-serve-free",
+        "verdict": "buildable-now",
+        "status_ok": true,
+        "verdict_ok": true
+      },
+      "first": {
+        "status": "self-serve-free",
+        "verdict": "buildable-now",
+        "status_ok": true,
+        "verdict_ok": true
+      },
+      "truth": {
+        "status": "self-serve-free",
+        "verdict": "buildable-now"
+      },
+      "result": "agree",
+      "checked_by": "agent",
+      "note": "API tokens on all plans incl. free via Workspace > Developers.",
+      "evidence": "https://attio.com/help/apps/other-apps/generating-an-api-key"
+    },
+    {
+      "app": "Intercom",
+      "memory": {
+        "status": "self-serve-free",
+        "verdict": "buildable-now",
+        "status_ok": false,
+        "verdict_ok": true
+      },
+      "first": {
+        "status": "self-serve-trial",
+        "verdict": "buildable-now",
+        "status_ok": true,
+        "verdict_ok": true
+      },
+      "truth": {
+        "status": "self-serve-trial",
+        "verdict": "buildable-now"
+      },
+      "result": "agree",
+      "checked_by": "agent",
+      "note": "Token on app creation, but no permanent free plan (14-day trial).",
+      "evidence": "https://developers.intercom.com/docs/build-an-integration/learn-more/authentication"
+    },
+    {
+      "app": "Gladly",
+      "memory": {
+        "status": "gated-partnership",
+        "verdict": "blocked",
+        "status_ok": true,
+        "verdict_ok": false
+      },
+      "first": {
+        "status": "gated-partnership",
+        "verdict": "buildable-with-friction",
+        "status_ok": true,
+        "verdict_ok": true
+      },
+      "truth": {
+        "status": "gated-partnership",
+        "verdict": "buildable-with-friction"
+      },
+      "result": "agree",
+      "checked_by": "agent",
+      "note": "Sales-led; /free-trial 404s; token needs an account gained via contract.",
+      "evidence": "https://help.gladly.com/implementation/docs/get-your-api-tokens"
+    },
+    {
+      "app": "Telegram",
+      "memory": {
+        "status": "self-serve-free",
+        "verdict": "buildable-now",
+        "status_ok": true,
+        "verdict_ok": true
+      },
+      "first": {
+        "status": "self-serve-free",
+        "verdict": "buildable-now",
+        "status_ok": true,
+        "verdict_ok": true
+      },
+      "truth": {
+        "status": "self-serve-free",
+        "verdict": "buildable-now"
+      },
+      "result": "agree",
+      "checked_by": "agent",
+      "note": "BotFather /newbot issues a token instantly, free, no approval.",
+      "evidence": "https://core.telegram.org/bots/features#botfather"
+    },
+    {
+      "app": "Google Ads",
+      "memory": {
+        "status": "gated-approval",
+        "verdict": "buildable-with-friction",
+        "status_ok": true,
+        "verdict_ok": true
+      },
+      "first": {
+        "status": "gated-approval",
+        "verdict": "buildable-with-friction",
+        "status_ok": true,
+        "verdict_ok": true
+      },
+      "truth": {
+        "status": "gated-approval",
+        "verdict": "buildable-with-friction"
+      },
+      "result": "agree",
+      "checked_by": "agent",
+      "note": "Dev token auto-issued at Test level; prod needs Basic/Standard review (5-10 days).",
+      "evidence": "https://developers.google.com/google-ads/api/docs/access-levels"
+    },
+    {
+      "app": "Klaviyo",
+      "memory": {
+        "status": "self-serve-free",
+        "verdict": "buildable-now",
+        "status_ok": true,
+        "verdict_ok": true
+      },
+      "first": {
+        "status": "self-serve-free",
+        "verdict": "buildable-now",
+        "status_ok": true,
+        "verdict_ok": true
+      },
+      "truth": {
+        "status": "self-serve-free",
+        "verdict": "buildable-now"
+      },
+      "result": "agree",
+      "checked_by": "agent",
+      "note": "Private API keys self-created (Owner/Admin), free accounts; official MCP.",
+      "evidence": "https://developers.klaviyo.com/en/docs/klaviyo_mcp_server"
+    },
+    {
+      "app": "Shopify",
+      "memory": {
+        "status": "self-serve-free",
+        "verdict": "buildable-now",
+        "status_ok": true,
+        "verdict_ok": true
+      },
+      "first": {
+        "status": "self-serve-free",
+        "verdict": "buildable-now",
+        "status_ok": true,
+        "verdict_ok": true
+      },
+      "truth": {
+        "status": "self-serve-free",
+        "verdict": "buildable-now"
+      },
+      "result": "agree",
+      "checked_by": "agent",
+      "note": "Free partner acct + dev stores; custom-app Admin tokens instant.",
+      "evidence": "https://shopify.dev/docs/apps/build/authentication-authorization/access-tokens/generate-app-access-tokens-admin"
+    },
+    {
+      "app": "Amazon Selling Partner",
+      "memory": {
+        "status": "gated-approval",
+        "verdict": "buildable-with-friction",
+        "status_ok": true,
+        "verdict_ok": true
+      },
+      "first": {
+        "status": "gated-approval",
+        "verdict": "buildable-with-friction",
+        "status_ok": true,
+        "verdict_ok": true
+      },
+      "truth": {
+        "status": "gated-approval",
+        "verdict": "buildable-with-friction"
+      },
+      "result": "agree",
+      "checked_by": "agent",
+      "note": "Developer registration + app approval; LWA OAuth; PII roles need extra review.",
+      "evidence": "https://developer-docs.amazon.com/sp-api/docs/registering-your-application"
+    },
+    {
+      "app": "Ahrefs",
+      "memory": {
+        "status": "gated-paid",
+        "verdict": "buildable-with-friction",
+        "status_ok": true,
+        "verdict_ok": true
+      },
+      "first": {
+        "status": "gated-paid",
+        "verdict": "buildable-with-friction",
+        "status_ok": true,
+        "verdict_ok": true
+      },
+      "truth": {
+        "status": "gated-paid",
+        "verdict": "buildable-with-friction"
+      },
+      "result": "agree",
+      "checked_by": "human+agent",
+      "note": "API v3 needs paid Lite+; unit-metered (50 min/req); full access ~Enterprise.",
+      "evidence": "https://docs.ahrefs.com/en/api/docs/introduction"
+    },
+    {
+      "app": "Sherlock",
+      "memory": {
+        "status": "no-public-api",
+        "verdict": "buildable-now",
+        "status_ok": false,
+        "verdict_ok": false
+      },
+      "first": {
+        "status": "self-serve-free",
+        "verdict": "buildable-with-friction",
+        "status_ok": true,
+        "verdict_ok": true
+      },
+      "truth": {
+        "status": "self-serve-free",
+        "verdict": "buildable-with-friction"
+      },
+      "result": "agree",
+      "checked_by": "agent",
+      "note": "MIT open-source CLI, no auth/API; agent must wrap the local binary.",
+      "evidence": "https://github.com/sherlock-project/sherlock"
+    },
+    {
+      "app": "GitHub",
+      "memory": {
+        "status": "self-serve-free",
+        "verdict": "buildable-now",
+        "status_ok": true,
+        "verdict_ok": true
+      },
+      "first": {
+        "status": "self-serve-free",
+        "verdict": "buildable-now",
+        "status_ok": true,
+        "verdict_ok": true
+      },
+      "truth": {
+        "status": "self-serve-free",
+        "verdict": "buildable-now"
+      },
+      "result": "agree",
+      "checked_by": "agent",
+      "note": "PATs/OAuth free & self-serve; official remote MCP.",
+      "evidence": "https://docs.github.com/en/rest/authentication/authenticating-to-the-rest-api"
+    },
+    {
+      "app": "Snowflake",
+      "memory": {
+        "status": "self-serve-trial",
+        "verdict": "buildable-now",
+        "status_ok": true,
+        "verdict_ok": false
+      },
+      "first": {
+        "status": "self-serve-trial",
+        "verdict": "buildable-with-friction",
+        "status_ok": true,
+        "verdict_ok": true
+      },
+      "truth": {
+        "status": "self-serve-trial",
+        "verdict": "buildable-with-friction"
+      },
+      "result": "agree",
+      "checked_by": "agent",
+      "note": "30-day OR credit-capped trial, no perpetual free tier; key-pair JWT.",
+      "evidence": "https://docs.snowflake.com/en/user-guide/admin-trial-account"
+    },
+    {
+      "app": "Notion",
+      "memory": {
+        "status": "self-serve-free",
+        "verdict": "buildable-now",
+        "status_ok": true,
+        "verdict_ok": true
+      },
+      "first": {
+        "status": "self-serve-free",
+        "verdict": "buildable-now",
+        "status_ok": true,
+        "verdict_ok": true
+      },
+      "truth": {
+        "status": "self-serve-free",
+        "verdict": "buildable-now"
+      },
+      "result": "agree",
+      "checked_by": "agent",
+      "note": "Internal integration tokens self-serve on Free/Plus; hosted MCP.",
+      "evidence": "https://developers.notion.com/docs/create-a-notion-integration"
+    },
+    {
+      "app": "Stripe",
+      "memory": {
+        "status": "self-serve-free",
+        "verdict": "buildable-now",
+        "status_ok": true,
+        "verdict_ok": true
+      },
+      "first": {
+        "status": "self-serve-free",
+        "verdict": "buildable-now",
+        "status_ok": true,
+        "verdict_ok": true
+      },
+      "truth": {
+        "status": "self-serve-free",
+        "verdict": "buildable-now"
+      },
+      "result": "agree",
+      "checked_by": "agent",
+      "note": "Test keys auto-created & free; hosted MCP + Agent Toolkit.",
+      "evidence": "https://docs.stripe.com/keys"
+    },
+    {
+      "app": "Plaid",
+      "memory": {
+        "status": "self-serve-free",
+        "verdict": "buildable-with-friction",
+        "status_ok": false,
+        "verdict_ok": true
+      },
+      "first": {
+        "status": "gated-approval",
+        "verdict": "buildable-with-friction",
+        "status_ok": true,
+        "verdict_ok": true
+      },
+      "truth": {
+        "status": "gated-approval",
+        "verdict": "buildable-with-friction"
+      },
+      "result": "agree",
+      "checked_by": "agent",
+      "note": "Sandbox self-serve; Production requires Plaid approval; official MCP.",
+      "evidence": "https://plaid.com/docs/resources/mcp/"
+    },
+    {
+      "app": "NotebookLM",
+      "memory": {
+        "status": "no-public-api",
+        "verdict": "blocked",
+        "status_ok": false,
+        "verdict_ok": true
+      },
+      "first": {
+        "status": "gated-partnership",
+        "verdict": "blocked",
+        "status_ok": true,
+        "verdict_ok": true
+      },
+      "truth": {
+        "status": "gated-partnership",
+        "verdict": "blocked"
+      },
+      "result": "agree",
+      "checked_by": "human+agent",
+      "note": "No consumer API; only NotebookLM Enterprise via paid Gemini Enterprise on GCP.",
+      "evidence": "https://docs.cloud.google.com/gemini/enterprise/notebooklm-enterprise/docs/overview"
+    },
+    {
+      "app": "Otter AI",
+      "memory": {
+        "status": "no-public-api",
+        "verdict": "blocked",
+        "status_ok": false,
+        "verdict_ok": false
+      },
+      "first": {
+        "status": "gated-approval",
+        "verdict": "buildable-with-friction",
+        "status_ok": false,
+        "verdict_ok": true
+      },
+      "truth": {
+        "status": "gated-partnership",
+        "verdict": "buildable-with-friction"
+      },
+      "result": "CORRECTED",
+      "checked_by": "agent",
+      "note": "Enterprise API/MCP enabled by contacting account manager = partnership, not app-review.",
+      "evidence": "https://help.otter.ai/hc/en-us/articles/36130822688279-Otter-ai-Public-API"
+    },
+    {
+      "app": "fanbasis",
+      "memory": {
+        "status": "no-public-api",
+        "verdict": "blocked",
+        "status_ok": false,
+        "verdict_ok": false
+      },
+      "first": {
+        "status": "self-serve-free",
+        "verdict": "buildable-now",
+        "status_ok": true,
+        "verdict_ok": true
+      },
+      "truth": {
+        "status": "self-serve-free",
+        "verdict": "buildable-now"
+      },
+      "result": "agree",
+      "checked_by": "human+agent",
+      "note": "apidocs.fan is real & live; x-api-key self-serve from dashboard.",
+      "evidence": "https://apidocs.fan/"
+    },
+    {
+      "app": "iPayX",
+      "memory": {
+        "status": "no-public-api",
+        "verdict": "blocked",
+        "status_ok": false,
+        "verdict_ok": false
+      },
+      "first": {
+        "status": "self-serve-trial",
+        "verdict": "buildable-now",
+        "status_ok": false,
+        "verdict_ok": true
+      },
+      "truth": {
+        "status": "self-serve-free",
+        "verdict": "buildable-now"
+      },
+      "result": "CORRECTED",
+      "checked_by": "agent",
+      "note": "Permanent free tier (~10 audits/day), not a 5-audit trial; API+MCP real.",
+      "evidence": "https://www.ipayx.ai/docs/mcp-server"
+    },
+    {
+      "app": "Fathom",
+      "memory": {
+        "status": "no-public-api",
+        "verdict": "blocked",
+        "status_ok": false,
+        "verdict_ok": false
+      },
+      "first": {
+        "status": "self-serve-trial",
+        "verdict": "buildable-now",
+        "status_ok": false,
+        "verdict_ok": true
+      },
+      "truth": {
+        "status": "self-serve-free",
+        "verdict": "buildable-now"
+      },
+      "result": "CORRECTED",
+      "checked_by": "agent",
+      "note": "Self-serve API key + permanent free plan; no documented tier gate.",
+      "evidence": "https://developers.fathom.ai/quickstart"
+    }
+  ]
+}
