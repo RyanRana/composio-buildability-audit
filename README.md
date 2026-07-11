@@ -2,7 +2,9 @@
 
 > Can each of 100 SaaS apps become an **agent toolkit** today? An agent researched all 100,
 > a second adversarial agent verified a sample, and a human spot-checked the rest.
-> **Live case study → [add your Vercel URL here]**
+>
+> **Live case study → https://composio-buildability-audit-roan.vercel.app**
+> **Source → https://github.com/RyanRana/composio-buildability-audit**
 
 This repo contains:
 
@@ -88,6 +90,26 @@ Accuracy is the headline metric. Three passes:
 
 The case-study page shows the sample, every hit and miss, and how accuracy moved from the first pass
 to the corrected numbers.
+
+**Measured accuracy** (21-app stratified sample, both key fields must match verified truth):
+
+| Pass | What it is | Rows fully correct |
+|------|-----------|--------------------|
+| 0 | memory-only, no docs fetched | **52%** |
+| 1 | doc-grounded research agent | **86%** |
+| 2 | + adversarial verifier + human fixes | **100%** |
+
+The jump from 0→1 is why the agent fetches docs instead of answering from memory (a memory-only pass
+confidently invents "no public API" for newer apps like fanbasis and iPayX). The jump from 1→2 came from
+the adversarial verifier overturning 3 first-pass access-tier labels (Otter, iPayX, Fathom) — those rows
+carry a `corrected_by_verification` flag in `findings.json` and a `FIX` badge on the page.
+
+## Headline findings
+
+- **56** self-serve-free, **24** trial, **20** gated (4 paid / 9 approval / 7 partnership).
+- **77** buildable-now, **21** buildable-with-friction, **2** blocked (PitchBook, NotebookLM).
+- **69** support OAuth2, **85** support an API-key/token — auth is not the blocker; production access is.
+- **46/100** already ship an official MCP server (10/10 in Dev-infra, 8/10 in Productivity).
 
 ## The findings, in one breath
 
